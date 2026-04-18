@@ -1,0 +1,54 @@
+{
+  "tables": [
+    {
+      "name": "users",
+      "primaryKey": "id",
+      "columns": [
+        { "name": "id", "type": "text" },
+        { "name": "username", "type": "text", "unique": true },
+        { "name": "created_at", "type": "text" }
+      ]
+    },
+    {
+      "name": "boards",
+      "primaryKey": "id",
+      "columns": [
+        { "name": "id", "type": "text" },
+        { "name": "user_id", "type": "text", "references": "users.id" },
+        { "name": "title", "type": "text" },
+        { "name": "created_at", "type": "text" },
+        { "name": "updated_at", "type": "text" }
+      ]
+    },
+    {
+      "name": "columns",
+      "primaryKey": "id",
+      "columns": [
+        { "name": "id", "type": "text" },
+        { "name": "board_id", "type": "text", "references": "boards.id" },
+        { "name": "title", "type": "text" },
+        { "name": "position", "type": "integer" }
+      ]
+    },
+    {
+      "name": "cards",
+      "primaryKey": "id",
+      "columns": [
+        { "name": "id", "type": "text" },
+        { "name": "board_id", "type": "text", "references": "boards.id" },
+        { "name": "column_id", "type": "text", "references": "columns.id" },
+        { "name": "title", "type": "text" },
+        { "name": "details", "type": "text" },
+        { "name": "position", "type": "integer" },
+        { "name": "created_at", "type": "text" },
+        { "name": "updated_at", "type": "text" }
+      ]
+    }
+  ],
+  "relationships": [
+    { "from": "boards.user_id", "to": "users.id", "type": "many-to-one" },
+    { "from": "columns.board_id", "to": "boards.id", "type": "many-to-one" },
+    { "from": "cards.board_id", "to": "boards.id", "type": "many-to-one" },
+    { "from": "cards.column_id", "to": "columns.id", "type": "many-to-one" }
+  ]
+}

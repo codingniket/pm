@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Backend Hello</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        margin: 40px;
+        color: #032147;
+        background: #f7f8fb;
+      }
+      .card {
+        max-width: 560px;
+        padding: 24px;
+        border-radius: 16px;
+        background: #ffffff;
+        box-shadow: 0 14px 30px rgba(3, 33, 71, 0.12);
+      }
+      h1 {
+        margin-top: 0;
+      }
+      .status {
+        margin-top: 12px;
+        font-weight: 600;
+        color: #209dd7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Backend is running</h1>
+      <p>This page is served by FastAPI.</p>
+      <p class="status" id="status">Calling /api/hello ...</p>
+    </div>
+    <script>
+      fetch("/api/hello")
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("status").textContent = data.message;
+        })
+        .catch(() => {
+          document.getElementById("status").textContent = "API call failed";
+        });
+    </script>
+  </body>
+</html>
